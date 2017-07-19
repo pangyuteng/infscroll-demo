@@ -21,11 +21,29 @@
 
 	<!-- SPELLS -->
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
+ 	<script src='ng-infinite-scroll.min.js'></script>
 	<script src="core.js"></script>
 
 </head>
 <!-- SET THE CONTROLLER AND GET ALL TODOS WITH INITIALIZE FUNCTION -->
 <body ng-controller="mainController">
+
+	<div ng-controller='infController'>
+	  <div infinite-scroll='reddit.nextPage()' infinite-scroll-disabled='reddit.busy' infinite-scroll-distance='1'>
+	    <div ng-repeat='item in reddit.items'>
+	      <span class='score'>{{item.score}}</span>
+	      <span class='title'>
+	        <a ng-href='{{item.url}}' target='_blank'>{{item.title}}</a>
+	      </span>
+	      <small>by {{item.author}} -
+	        <a ng-href='http://reddit.com{{item.permalink}}' target='_blank'>{{item.num_comments}} comments</a>
+	      </small>
+	      <div style='clear: both;'></div>
+	    </div>
+	    <div ng-show='reddit.busy'>Loading data...</div>
+	  </div>
+	</div>
+
 	<div class="container">
 
 		<!-- HEADER AND TODO COUNT -->
