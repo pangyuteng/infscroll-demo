@@ -74,9 +74,8 @@
 
 	<div ng-controller='infController'>
 	  <div infinite-scroll='inftodo.nextPage()' infinite-scroll-disabled='inftodo.busy' infinite-scroll-distance='0.5'>
-	  {{inftodo.seen_ids}},{{inftodo.busy}},{{inftodo.items}}
-	    <div ng-repeat='todo in todos'>
-	      {{todo._id}},{{ todo.text }}
+	    <div ng-repeat='todo in inftodo.items'>
+	      {{todo._id}},{{ todo.text }},{{inftodo.busy}}
 	    </div>
 	    <div ng-show='inftodo.busy'>Loading data...</div>
 	  </div>
