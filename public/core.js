@@ -77,9 +77,12 @@ scotchTodo.factory('InfTodo', function($http) {
       }
       this.seen_ids = this.items.map(function(a) {return a._id});
       this.busy = false;
+
+      // disable scrolling at end of query - query returns the same amount of item.
       if (this.seen_ids.length == this.old_seen_ids_count){
       	this.busy = true;
       }
+
 	}.bind(this));
   };
 
