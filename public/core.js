@@ -68,7 +68,7 @@ scotchTodo.factory('InfTodo', function($http) {
     	url+=addons;
     }
     //url+='&jsonp=JSON_CALLBACK';
-	
+	this.old_seen_ids_count = this.seen_ids.length;	
 	$http.get(url).success(function(data) {
       var items = data.todos;
 
@@ -77,6 +77,9 @@ scotchTodo.factory('InfTodo', function($http) {
       }
       this.seen_ids = this.items.map(function(a) {return a._id});
       this.busy = false;
+      if (this.seen_ids.length == this.old_seen_ids_count){
+      	this.busy = true;
+      }
 	}.bind(this));
   };
 
