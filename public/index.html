@@ -28,22 +28,6 @@
 <!-- SET THE CONTROLLER AND GET ALL TODOS WITH INITIALIZE FUNCTION -->
 <body ng-controller="mainController">
 
-	<div ng-controller='infController'>
-	  <div infinite-scroll='reddit.nextPage()' infinite-scroll-disabled='reddit.busy' infinite-scroll-distance='1'>
-	    <div ng-repeat='item in reddit.items'>
-	      <span class='score'>{{item.score}}</span>
-	      <span class='title'>
-	        <a ng-href='{{item.url}}' target='_blank'>{{item.title}}</a>
-	      </span>
-	      <small>by {{item.author}} -
-	        <a ng-href='http://reddit.com{{item.permalink}}' target='_blank'>{{item.num_comments}} comments</a>
-	      </small>
-	      <div style='clear: both;'></div>
-	    </div>
-	    <div ng-show='reddit.busy'>Loading data...</div>
-	  </div>
-	</div>
-
 	<div class="container">
 
 		<!-- HEADER AND TODO COUNT -->
@@ -88,5 +72,15 @@
 
 	</div>
 
+	<div ng-controller='infController'>
+	  <div infinite-scroll='inftodo.nextPage()' infinite-scroll-disabled='inftodo.busy' infinite-scroll-distance='0.5'>
+	  {{inftodo.seen_ids}},{{inftodo.busy}},{{inftodo.items}}
+	    <div ng-repeat='todo in todos'>
+	      {{todo._id}},{{ todo.text }}
+	    </div>
+	    <div ng-show='inftodo.busy'>Loading data...</div>
+	  </div>
+	</div>
+	
 </body>
 </html>

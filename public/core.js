@@ -38,6 +38,51 @@ function mainController($scope, $http) {
 
 }
 
+scotchTodo.controller('infController', function($scope, InfTodo) {
+  $scope.inftodo = new InfTodo();
+});
+
+// InfTodo constructor function to encapsulate HTTP and pagination logic
+scotchTodo.factory('InfTodo', function($http) {
+  var InfTodo = function() {
+    this.items = [];
+    this.busy = false;
+    this.seen_ids = [];
+  };
+
+  InfTodo.prototype.nextPage = function() {
+    if (this.busy) return;
+    this.busy = true;
+
+    //var url = "http://localhost:8080/api/todo-inf";
+    var url = "/api/todo-inf";
+
+    var isQuery = false;
+    var addons = "?";
+    
+    for (let item of this.seen_ids){
+    	addons+="nin="+item+"&";
+    	isQuery = true;
+    }
+    if (isQuery){
+    	url+=addons;
+    }
+    //url+='&jsonp=JSON_CALLBACK';
+	
+	$http.get(url).success(function(data) {
+      var items = data.todos;
+
+      for (var i = 0; i < items.length; i++) {
+        this.items.push(items[i]);
+      }
+      this.seen_ids = this.items.map(function(a) {return a._id});
+      this.busy = false;
+	}.bind(this));
+  };
+
+  return InfTodo;
+});
+/*
 scotchTodo.controller('infController', function($scope, Reddit) {
   $scope.reddit = new Reddit();
 });
@@ -67,3 +112,4 @@ scotchTodo.factory('Reddit', function($http) {
 
   return Reddit;
 });
+*/
