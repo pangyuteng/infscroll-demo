@@ -10,6 +10,6 @@
     "gulp": "^3.9.1",
     "method-override": "~> 2.3.10",
     "mongoose": "~3.6.2",
-    "morgan": "~1.2.2"
+    "morgan": "~>1.2.2"
   }
 }
